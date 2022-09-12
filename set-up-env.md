@@ -39,3 +39,19 @@ or
 To deactivate your virtual environment, you need to run the following command:
 
     deactivate
+
+# How to install packages in your virtual environment
+
+Now that you know how to create, activate and deactivate your virtual environment, you need to know how to install packages in your virtual environment. To install packages in your virtual environment, you need to run the following command:
+
+    pip install <package name>
+
+You can also install packages from a requirements file, (these are user made, you will have to create one if you are making your own project or is provided by the developers of the project) by running the following command:
+
+    pip install -r requirements.txt
+
+# How to create a requirements file
+
+Fret not, you don't have to create a requirements file from scratch. You can use the following command to create a requirements file and it will automatically add all the packages you have installed in your virtual environment:
+
+    pip freeze > requirements.txt
