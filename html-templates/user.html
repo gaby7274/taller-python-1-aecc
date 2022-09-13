@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- print name -->
+        <title>{{name}}</title>
+    </head>
+    <body>
+        <h1>Welcome, {{name}}.</h1>
+        <!-- table that print interest -->
+        <!-- centralized text -->
+        <table>
+            <tr>
+                <th>Interest</th>
+            </tr>
+            {% for interest in lista_interes %}
+            <!-- if index number is odd, change text to bold -->
+            <!-- if the index number is par, change text to italic -->
+            {% if loop.index is odd %}
+            <tr>
+                <td style="text-align:center"><b>{{interest}}</b></td>
+            </tr>
+            {% else %}
+            <tr>
+                <td style="text-align:center"><i>{{interest}}</i></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+    </body>
+</html>
