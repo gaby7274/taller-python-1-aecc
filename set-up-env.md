@@ -12,9 +12,9 @@ Python versions 3.3 and above come with a built in module called venv. This modu
 
 this will create a folder with the name of the virtual environment you specified. To activate the virtual environment, you need to run the following command:
 
-| Posix   | bash/zsh   | python venv/bin/activate     |
+| Posix   | bash/zsh   | source venv/bin/activate     |
 |---------|------------|------------------------------|
-|         | csh/tcsh   | python venv/bin/activate.csh |
+|         | csh/tcsh   | source venv/bin/activate.csh |
 | Windows | cmd.exe    | venv\Scripts\activate.bat    |
 |         | PowerShell | venv\Scripts\Activate.ps1    |
 
