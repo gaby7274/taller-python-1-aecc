@@ -1,29 +1,195 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- print name -->
-        <title>{{name}}</title>
-    </head>
-    <body>
-        <h1>Welcome, {{name}}.</h1>
-        <!-- table that print interest -->
-        <!-- centralized text -->
-        <table>
-            <tr>
-                <th>Interest</th>
-            </tr>
-            {% for interest in lista_interes %}
-            <!-- if index number is odd, change text to bold -->
-            <!-- if the index number is par, change text to italic -->
-            {% if loop.index is odd %}
-            <tr>
-                <td style="text-align:center"><b>{{interest}}</b></td>
-            </tr>
-            {% else %}
-            <tr>
-                <td style="text-align:center"><i>{{interest}}</i></td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-    </body>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <style>
+        table {
+            font-family: serif;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        td,
+        th {
+            border: 2px solid #000000;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Bienvenidos al Taller de {{title}}</h1>
+            <div class="alert alert-secondary" role="alert">
+                Estas son las tablas de bootstrap. Para documentación <a
+                    href="https://getbootstrap.com/docs/4.6/getting-started/introduction/" class="alert-link">Entra
+                    Aquí</a>.
+            </div>
+        </div>
+    </div>
+    <div class='container'>
+        <div class='row'>
+
+            <div class='col-12'>
+                <table class="table table-hover table-borderless">
+                    <thead class='thead-dark'>
+                        <tr>
+
+                            <th scope="col">Nombre </th>
+                            <th scope="col">Apellido Paterno </th>
+                            <th scope="col">Apellido Materno</th>
+                            <th scope="col">Gustos</th>
+
+                            <th scope="col">Edit Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in range(la_tabla|length) %}
+
+                        {% if (i%2)==1 %}
+                        <tr bgcolor=" #dddddd;" id='row_{{i}}'>
+
+                            {% else %}
+                        <tr bgcolor="aqua" id='row_{{i}}'>
+
+                            {% endif %}
+                            <td>{{la_tabla[i][0]}}</td>
+                            <td>{{la_tabla[i][1]}}</td>
+                            <td>{{la_tabla[i][2]}}</td>
+                            <td>
+                                <ul>
+                                    {%for interes in la_tabla[i][3]%}
+
+                                    <li>{{interes}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-warning"
+                                        onclick="edit_modal({{i}})">Edit</button>
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="delete_modal({{i}})">Delete</button>
+                                </div>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--edit modal-->
+    <div class="modal fade" id="edit_modal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="ApellidoPaterno">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="ApellidoPaterno"
+                            placeholder="Apellido Paterno Aquí">
+                    </div>
+                    <div class="form-group">
+                        <label for="ApellidoMaterno">Apellido Materno</label>
+                        <input type="text" class="form-control" id="ApellidoMaterno"
+                            placeholder="Apellido Materno Aquí">
+                    </div>
+                    <div class="form-group">
+                        <label for="Nombre">Nombre</label>
+                        <input type="text" class="form-control" id="Nombre" placeholder="Nombre Aqui">
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nah, pichea y cierra</button>
+                    <button type="button" class="btn btn-primary" id="confirm_edit">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Estás cieeen porciento segurx que quieres borrar?
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Si lo borras papi te jod*ste porque no hay break que lo recuperes (al menos que le des ctrl+r)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id='confirm_delete'>Claro que si boti</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function edit_modal(row_number) {
+            $('#edit_modal').modal()
+            apellidoPaterno = $('#row_' + row_number).children().eq(1).html();
+            apellidoMaterno = $('#row_' + row_number).children().eq(2).html();
+            nombre = $('#row_' + row_number).children().eq(0).html();
+            //inicial = $('#row_' + row_number).children().eq(4).html();
+            $('#ApellidoPaterno').val(apellidoPaterno);
+            $('#ApellidoMaterno').val(apellidoMaterno);
+            $('#Nombre').val(nombre);
+            //$("#Inicial").val(inicial)
+            $('#confirm_edit').attr('onclick', 'edit_table_row(' + row_number + ')');
+
+        }
+
+        function edit_table_row(row_number) {
+            apellidoPaterno = $('#ApellidoPaterno').val();
+            $('#row_' + row_number).children().eq(1).html(apellidoPaterno);
+            apellidoMaterno = $('#ApellidoMaterno').val();
+            $('#row_' + row_number).children().eq(2).html(apellidoMaterno);
+            nombre = $('#Nombre').val();
+            $('#row_' + row_number).children().eq(0).html(nombre);
+
+
+
+            $('#edit_modal').modal("toggle");
+        }
+
+        function delete_modal(row_number) {
+            $('#delete').modal();
+            $('#confirm_delete').attr('onclick', '$("#row_' + row_number + '").remove(); $("#delete").modal("toggle")');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous">
+        </script>
+</body>
+
 </html>
